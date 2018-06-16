@@ -22,7 +22,6 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-
         }
 
         row {
@@ -46,26 +45,21 @@
 <body>
     <div class="container-fluid">
         <div class="row">
-
             <div class="col-sm-12 inputTxt">
                 <input type="button" value="show all" onclick="showAllCountry()" />
             </div>
-
         </div>
         <div class="row">
-
             <div class="col-sm-12 inputTxt">
                 <input type="text" placeholder="Enter Country Name" id="countryName" />
                 <input type="button" value="show this country" onclick="showSpecCountry()" />
             </div>
-
         </div>
         <div class="row">
             <div class="col-sm-12 inputTxt">
                 <input type="text" placeholder="Enter Europe Background Color" id="countryColor" />
                 <input type="button" value="Change background color" onclick="showEuroColor()" />
             </div>
-
         </div>
         <div class="row">
             <div class="col-sm-12 inputTxt">
@@ -77,9 +71,7 @@
                 <input type="button" value="Bold Font To Euro" onclick="boldFontEuro()" />
             </div>
         </div>
-
         <div class="row" id="allCountry">
-
         </div>
     </div>
 
@@ -122,9 +114,7 @@
                     var counTxt = document.createElement("div");
                     counTxt.setAttribute("class", "counTxtClass");
                     counColDiv.appendChild(counTxt);
-
                     counTxt.innerHTML = counTitle;
-
                     var counRigion = data[i].region;
                     var counCurrency = data[i].currencies[0].name;
                     countryJSON[i] = ({ counTitleObj: counTitle, counRegionObj: counRigion, counCurrencyObj: counCurrency });
@@ -135,15 +125,14 @@
         function showSpecCountry() {
             $(function () {
                 var specCounName = $("#countryName").val();
-
-                for (i = 0; i < countryJSON.length; i++) {
-                    var counId = i;
+                countryJSON.forEach(checkCountryName);
+                function checkCountryName(element, index, array) {
+                    var counId = index;
                     var that = $("#" + counId);
-                    if (countryJSON[i].counTitleObj != specCounName) {
+                    if (array[index].counTitleObj != specCounName) {
                         $(that).hide();
                     }
                 }
-
             });
         }
 
@@ -151,46 +140,43 @@
         function showEuroColor() {
             $(function () {
                 var colorCoun = $("#countryColor").val();
-
-
-                for (i = 0; i < countryJSON.length; i++) {
-                    var counId = i;
+                countryJSON.forEach(checkEuroColor);
+                function checkEuroColor(element, index, array) {
+                    var counId = index;
                     var that = $("#" + counId);
-                    if (countryJSON[i].counRegionObj == "Europe") {
+                    if (array[index].counRegionObj == "Europe") {
                         $(that).css("background-color", colorCoun);
                     }
                 }
-
-
             });
         }
 
         function showOnlyEuropeCountry() {
             $(function () {
-                for (i = 0; i < countryJSON.length; i++) {
-                    var counId = i;
+                countryJSON.forEach(checkEuroCountry);
+                function checkEuroCountry(element, index, array) {
+                    var counId = index;
                     var that = $("#" + counId);
-                    if (countryJSON[i].counRegionObj != "Europe") {
+                    if (array[index].counRegionObj != "Europe") {
                         $(that).hide();
                     }
                 }
-
             });
         }
 
 
-    function boldFontEuro(){
-        $(function () {
-            for (i = 0; i < countryJSON.length; i++) {
-                    var counId = i;
+        function boldFontEuro() {
+            $(function () {
+                countryJSON.forEach(checkEuro);
+                function checkEuro(element, index, array) {
+                    var counId = index;
                     var that = $("#" + counId);
-                    if (countryJSON[i].counCurrencyObj == "Euro") {
+                    if (array[index].counCurrencyObj == "Euro") {
                         $(that).css("font-weight", "bold");
                     }
                 }
-
-        }); 
-    }
+            });
+        }
 
 
     </script>
